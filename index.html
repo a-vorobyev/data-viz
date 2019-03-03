@@ -213,12 +213,24 @@
   function getMapProjection(config) {
     let {width, height} = config;
     let projection = //TODO: Create a projection of type Mercator.
-      d3.getGeoMercator();
+      d3.geoMercator();
     projection.scale(97)
               .translate([width / 2, height / 2 + 20])
 
     store.mapProjection = projection;
     return projection;
+  }
+
+  function drawBaseMap(container, countries, projection){
+
+    let path = //TODO: create a geoPath generator and set its projection to be the projection passed as parameter.
+      d3.geoPath(projection);
+
+    container.selectAll("path").data(countries)
+        .enter().append("path")
+        .attr("d", path )//TODO: use the path generator to draw each country )
+        .attr("stroke", "#ccc")
+        .attr("fill", "#eee")
   }
 
 </script>
