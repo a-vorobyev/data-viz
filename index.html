@@ -55,13 +55,14 @@
   let store = {}
 
   function loadData() {
-    let promise = //TODO 1: Add the code to load the CSV file named "routes.csv" | 1 Line
-      d3.csv("routes.csv")
-    return promise.then(routes => {
-        store.routes = //TODO 2: Save the routes into our store variable;
-           routes
-        return store
-    })
+    return Promise.all([
+      d3.csv("routes.csv"),
+      d3.json("countries.geo.json")
+    ]).then(dataSets => {
+      store.routes = dataSets[0];
+      store.geoJSON = dataSets[1];
+      return store;
+    });
   }
 
   function groupByAirline(data) {
@@ -194,6 +195,19 @@
     container.append("g")
       .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
       .call(axisY)
+  }
+
+  function getMapConfig() {
+    let width = 600;
+    let height = 400;
+    let container = //TODO: select the svg with id Map
+      d3.select("#Map");
+       //TODO: set the width and height of the conatiner to be equal the width and height variables.
+    container
+      .attr("width", width)
+      .attr("height", height);
+
+    return {width, height, container}
   }
 
 </script>
