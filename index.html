@@ -210,6 +210,17 @@
     return {width, height, container}
   }
 
+  function getMapProjection(config) {
+    let {width, height} = config;
+    let projection = //TODO: Create a projection of type Mercator.
+      d3.getGeoMercator();
+    projection.scale(97)
+              .translate([width / 2, height / 2 + 20])
+
+    store.mapProjection = projection;
+    return projection;
+  }
+
 </script>
 
 </html>
