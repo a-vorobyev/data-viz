@@ -98,7 +98,8 @@
     let airlines = groupByAirline(routes)
     console.log(airlines)
 
-    drawAirlinesChart(airlines)
+    drawAirlinesChart(airlines);
+    drawMap(store.geoJSON);
   }
 
   loadData().then( showData )
@@ -231,6 +232,14 @@
         .attr("d", path )//TODO: use the path generator to draw each country )
         .attr("stroke", "#ccc")
         .attr("fill", "#eee")
+  }
+
+  function drawMap(geoJson) {
+
+    let config = getMapConfig();
+    let projection = getMapProjection(config);
+
+    drawBaseMap(config.container, geoJson.features, projection);
   }
 
 </script>
