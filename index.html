@@ -100,6 +100,9 @@
 
     drawAirlinesChart(airlines);
     drawMap(store.geoJSON);
+
+    let airports = groupByAirport(routes);
+    drawAirports(airports);
   }
 
   loadData().then( showData )
