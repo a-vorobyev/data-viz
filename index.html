@@ -103,8 +103,6 @@
 
     let airports = groupByAirport(routes);
     drawAirports(airports);
-
-    drawRoutes("24");
   }
 
   loadData().then( showData )
@@ -180,7 +178,20 @@
         //TODO: set the width of the bar to be proportional to the airline count using the xScale
         .attr("width", a => xScale(a.Count))
         .attr("fill", "#2a5599")
-  }
+        .on("mouseenter", function(d) { // <- this is the new code
+          //TODO: call the drawRoutes function passing the AirlineID id 'd'
+          drawRoutes(d.AirlineID);
+          //TODO: change the fill color of the bar to "#992a5b" as a way to highlight the bar. Hint: use d3.select(this)
+          d3.select(this).attr("fill", "#992a5b");
+        })
+        //TODO: Add another listener, this time for mouseleave
+        .on("mouseleave", function(d){
+            //TODO: In this listener, call drawRoutes(null), this will cause the function to remove all lines in the chart since there is no airline withe AirlineID == null.
+            drawRoutes(null);
+            //TODO: change the fill color of the bar back to "#2a5599"
+            d3.select(this).attr("fill", "#2a5599");
+        });
+    }
 
   function drawAxesAirlinesChart(airlines, scales, config){
     let {xScale, yScale} = scales
